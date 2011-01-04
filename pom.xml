@@ -40,6 +40,7 @@
     <scm>
         <connection>scm:git:git://github.com/ldriscoll/ektorplucene.git</connection>
         <url>http://github.com/ldriscoll/ektorplucene/</url>
+        <developerConnection>scm:git:git://github.com/ldriscoll/ektorplucene.git</developerConnection>
     </scm>
 
     <licenses>
@@ -105,6 +106,11 @@
                         </manifest>
                     </archive>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.0-beta-9</version>
             </plugin>
         </plugins>
     </build>
