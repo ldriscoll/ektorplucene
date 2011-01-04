@@ -1,0 +1,11 @@
+.DS_Store
+target/
+src/main/webapp/queue/
+*~
+.idea
+src/main/webapp/work/
+*.iml
+hsql/
+logs/
+*/conf/customer/
+var/
