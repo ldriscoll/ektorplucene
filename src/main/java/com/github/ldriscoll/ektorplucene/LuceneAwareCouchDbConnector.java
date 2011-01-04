@@ -1,7 +1,7 @@
 package com.github.ldriscoll.ektorplucene;
 
 /**
- * Copyright 2010 Luke Driscoll
+ * Copyright 2011 Luke Driscoll
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
