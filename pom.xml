@@ -6,7 +6,7 @@
     <name>Ektorp Lucene Plugin</name>
     <description>Addon tool for Ektorp to enable querying couchdb-lucene</description>
     <url>http://github.com/ldriscoll/ektorplucene</url>
-    <version>0.1.0</version>
+    <version>0.1.1-SNAPSHOT</version>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>
