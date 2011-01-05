@@ -1,11 +1,19 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.ldriscoll</groupId>
     <artifactId>ektorplucene</artifactId>
     <packaging>jar</packaging>
     <name>Ektorp Lucene Plugin</name>
+    <description>Addon tool for Ektorp to enable querying couchdb-lucene</description>
     <url>http://github.com/ldriscoll/ektorplucene</url>
     <version>0.1.1-SNAPSHOT</version>
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>5</version>
+    </parent>
 
     <dependencies>
         <dependency>
@@ -37,9 +45,9 @@
     </issueManagement>
 
     <scm>
-        <connection>scm:git:git://github.com/ldriscoll/ektorplucene.git</connection>
-        <url>http://github.com/ldriscoll/ektorplucene/</url>
-        <developerConnection>scm:git:git://github.com/ldriscoll/ektorplucene.git</developerConnection>
+        <connection>scm:git:git@github.com:ldriscoll/ektorplucene.git</connection>
+        <developerConnection>scm:git:git@github.com:ldriscoll/ektorplucene.git</developerConnection>
+        <url>git@github.com:ldriscoll/ektorplucene.git</url>
     </scm>
 
     <licenses>
@@ -58,7 +66,7 @@
             <roles>
                 <role>Developer</role>
             </roles>
-            <timezone>5</timezone>
+            <timezone>-5</timezone>
         </developer>
     </developers>
     <build>
@@ -105,11 +113,6 @@
                         </manifest>
                     </archive>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.0-beta-9</version>
             </plugin>
         </plugins>
     </build>
