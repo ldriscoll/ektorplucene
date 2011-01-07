@@ -25,10 +25,10 @@ Using a LuceneQuery one can then call luceneAwareCouchDbConnector.queryLucene.  
 
 <h1>Maven</h1>
 EktorpLucene is now available in the maven repositories.  Please at this to your dependencies:
-<pre>
-<dependency>
-  <groupId>com.github.ldriscoll</groupId>
-  <artifactId>ektorplucene</artifactId>
-  <version>0.1.1</version>
-</dependency>
-</pre>
+<pre><code>
+&lt;dependency&gt;
+  &lt;groupId&gt;com.github.ldriscoll&lt;/groupId&gt;
+  &lt;artifactId&gt;ektorplucene&lt;/artifactId&gt;
+  &lt;version&gt;0.1.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
