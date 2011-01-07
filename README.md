@@ -22,3 +22,13 @@ LuceneAwareCouchDbConnector extends, and basically replaces, StdCouchDbConnector
 LuceneQuery is then a tool that builds the couchdb-lucene query, anything in that pojo should match the arguments for couchdb-lucene.
 
 Using a LuceneQuery one can then call luceneAwareCouchDbConnector.queryLucene.  This returns a LuceneResult, that should match the response from couchdb-lucene.
+
+<h1>Maven</h1>
+EktorpLucene is now available in the maven repositories.  Please at this to your dependencies:
+<pre>
+<dependency>
+  <groupId>com.github.ldriscoll</groupId>
+  <artifactId>ektorplucene</artifactId>
+  <version>0.1.1</version>
+</dependency>
+</pre>
