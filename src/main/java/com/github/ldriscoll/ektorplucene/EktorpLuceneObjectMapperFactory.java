@@ -5,7 +5,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.ser.CustomSerializerFactory;
-import org.ektorp.impl.ObjectMapperFactory;
+import org.ektorp.CouchDbConnector;
+import org.ektorp.impl.StdObjectMapperFactory;
 import org.joda.time.DateTime;
 
 /**
@@ -17,20 +18,27 @@ import org.joda.time.DateTime;
  * Time: 9:59 AM
  * To change this template use File | Settings | File Templates.
  */
-public class EktorpLuceneObjectMapperFactory implements ObjectMapperFactory {
+public class EktorpLuceneObjectMapperFactory extends StdObjectMapperFactory {
     private ObjectMapper instance;
 
+    @Override
     public synchronized ObjectMapper createObjectMapper() {
         if (instance == null) {
-            createDefaultObjectMapper();
+            instance = new ObjectMapper();
+            applyDefaultConfiguration(instance);
         }
         return instance;
     }
 
+    @Override
+    public ObjectMapper createObjectMapper(CouchDbConnector connector) {
+        ObjectMapper om = super.createObjectMapper(connector);
+        applyDefaultConfiguration(om);
+        return om;
+    }
 
-    private void createDefaultObjectMapper() {
-        instance = new ObjectMapper();
-        
+    private void applyDefaultConfiguration(ObjectMapper instance) {
+
         instance.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS, false);
         instance.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
         instance.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
