@@ -3,7 +3,7 @@ I created this project to enable the use of [couchdb-lucene](http://github.com/r
 The Ektorp project does not directly support couchdb-lucene as it is not core to couchdb lucene.
 
 Version 0.1.1 supports ektorp 1.0.2
-Version 0.1.2 will support ektorp 1.1.0
+Version 0.1.2 supports ektorp 1.1.0
 
 # Minimum System Requirement #
 Java 1.5 (or Above) is required.  Personnaly I use Sun Java 6
