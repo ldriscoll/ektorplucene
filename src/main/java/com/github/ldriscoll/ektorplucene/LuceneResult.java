@@ -36,6 +36,7 @@ public class LuceneResult implements Serializable {
     private static final String FETCH_DURATION_FIELD_NAME = "fetch_duration";
     private static final String SEARCH_DURATION_FIELD_NAME = "search_duration";
     private static final String TOTAL_ROWS_FIELD_NAME = "total_rows";
+    private static final String QUERY_FIELD_NAME = "q";
 
 
 
@@ -44,7 +45,7 @@ public class LuceneResult implements Serializable {
     private int fetchDuration = -1;
     private int limit = -1;
     private String plan;
-    private String q;
+    private String query;
 
     private int searchDuration = -1;
     private int skip = -1;
@@ -126,13 +127,13 @@ public class LuceneResult implements Serializable {
      * The query that was executed
      * @return
      */
-    public String getQ() {
-        return q;
+    public String getQuery() {
+        return query;
     }
 
-    @JsonProperty
-    public void setQ(String q) {
-        this.q = q;
+    @JsonProperty(QUERY_FIELD_NAME)
+    public void setQuery(String query) {
+        this.query = query;
     }
 
     /**
