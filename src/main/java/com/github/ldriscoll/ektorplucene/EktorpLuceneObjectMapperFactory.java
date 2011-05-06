@@ -12,11 +12,6 @@ import org.joda.time.DateTime;
 /**
  * Code based on StdObjectMapperFactory
  * The objectmapper must remain a single instance as it is used both in StdCouchDbConnector, and LuceneAwareCouchDbConnector
- * Created by IntelliJ IDEA.
- * User: ldriscoll
- * Date: 1/10/11
- * Time: 9:59 AM
- * To change this template use File | Settings | File Templates.
  */
 public class EktorpLuceneObjectMapperFactory extends StdObjectMapperFactory {
     private ObjectMapper instance;

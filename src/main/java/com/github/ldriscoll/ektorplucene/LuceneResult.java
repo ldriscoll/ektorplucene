@@ -24,12 +24,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * Based on org.ektorp.ViewResult
- * User: ldriscoll
- * Date: 12/9/10
- * Time: 3:04 PM
- * This is the result of the lucene query.
+ * The result of the lucene query.
  */
 public class LuceneResult implements Serializable {
 

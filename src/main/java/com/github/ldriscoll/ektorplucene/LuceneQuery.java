@@ -22,13 +22,7 @@ import org.ektorp.http.URI;
 import org.ektorp.support.DesignDocument;
 
 /**
- * Created by IntelliJ IDEA.
- * Modeled off org.ektorp.ViewQuery
- * User: ldriscoll
- * Date: 12/9/10
- * Time: 2:19 PM
- *
- * A LuceneQuery is the basic tool for querying couchdb-lucene (https://github.com/rnewson/couchdb-lucene).
+ * Modeled off org.ektorp.ViewQuery: A LuceneQuery is the basic tool for querying couchdb-lucene (https://github.com/rnewson/couchdb-lucene).
  * it depends on couchdb-lucene being installed.  The names of the fields in this class match up with the
  * names of the fields used in couchdb-lucene, this may change to become more java like.
  * The index function and design document are well described on couchdb-lucene's website

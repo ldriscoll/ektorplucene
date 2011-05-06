@@ -26,11 +26,7 @@ import org.ektorp.impl.StdCouchDbConnector;
 import org.ektorp.util.Assert;
 
 /**
- * Created by IntelliJ IDEA.
- * User: ldriscoll
- * Date: 12/9/10
- * Time: 2:18 PM
- * To change this template use File | Settings | File Templates.
+ * Simple override of the base StdCouchDbConnector that allows us to run queries against couchdb
  */
 public class LuceneAwareCouchDbConnector extends StdCouchDbConnector {
 
