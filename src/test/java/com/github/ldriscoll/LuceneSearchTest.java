@@ -32,12 +32,15 @@ public class LuceneSearchTest {
 
     @Test
     public void testSearch() {
+        // Create a few documents to search
         updateDocument("test1", "field1", "test");
         updateDocument("test2", "field1", "test");
         updateDocument("test2", "field2", "here");
 
+        // create a simple query against the view/search function that we've created
         LuceneQuery query = new LuceneQuery(Const.VIEW_NAME, Const.SEARCH_FUNCTION);
         query.setQuery("field1:test AND field2:here");
+        // stale must not be ok, as we've only just loaded the docs
         query.setStaleOk(false);
 
         try {
@@ -96,7 +99,7 @@ public class LuceneSearchTest {
         connector = new LuceneAwareCouchDbConnector(Const.TEST_DATABASE, instance);
         connector.createDatabaseIfNotExists();
 
-        // make sure that the indexer is uptodate
+        // make sure that the indexer is upto date
         IndexUploader uploader = new IndexUploader();
         uploader.updateSearchFunctionIfNecessary(connector, Const.VIEW_NAME, Const.SEARCH_FUNCTION, indexEverythingJS);
 

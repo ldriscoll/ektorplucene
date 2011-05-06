@@ -4,6 +4,7 @@ The Ektorp project does not directly support couchdb-lucene as it is not core to
 
 Version 0.1.1 supports ektorp 1.0.2
 Version 0.1.2 supports ektorp 1.1.0
+Version 0.1.3 supports ektorp 1.1.1
 
 # Minimum System Requirement #
 Java 1.5 (or Above) is required.  Personnaly I use Sun Java 6
@@ -30,5 +31,8 @@ EktorpLucene is now available in the maven repositories.  Please at this to your
     <dependency>
       <groupId>com.github.ldriscoll</groupId>
       <artifactId>ektorplucene</artifactId>
-      <version>0.1.1</version>
+      <version>0.1.3</version>
     </dependency>
+
+# Sample #
+Please take a look at LuceneSearchTest.testSearch for a basic sample of how to use it.
