@@ -29,7 +29,7 @@ import java.util.List;
  * User: ldriscoll
  * Date: 12/9/10
  * Time: 3:04 PM
- * To change this template use File | Settings | File Templates.
+ * This is the result of the lucene query.
  */
 public class LuceneResult implements Serializable {
 
@@ -60,6 +60,11 @@ public class LuceneResult implements Serializable {
     }
 
 
+    /**
+     * The analyzer that was used during processing.  Please refer to https://github.com/rnewson/couchdb-lucene
+     * for more details
+     * @return
+     */
     public String getAnalyzer() {
         return analyzer;
     }
@@ -69,6 +74,10 @@ public class LuceneResult implements Serializable {
         this.analyzer = analyzer;
     }
 
+    /**
+     * Token that reflects the current version of the index
+     * @return
+     */
     public String getEtag() {
         return etag;
     }
@@ -78,6 +87,10 @@ public class LuceneResult implements Serializable {
         this.etag = etag;
     }
 
+    /**
+     * Number of milliseconds spent retrieving the documents
+     * @return
+     */
     public int getFetchDuration() {
         return fetchDuration;
     }
@@ -87,6 +100,10 @@ public class LuceneResult implements Serializable {
         this.fetchDuration = fetchDuration;
     }
 
+    /**
+     * The maximum number of results that are returned
+     * @return
+     */
     public int getLimit() {
         return limit;
     }
@@ -105,6 +122,10 @@ public class LuceneResult implements Serializable {
         this.plan = plan;
     }
 
+    /**
+     * The query that was executed
+     * @return
+     */
     public String getQ() {
         return q;
     }
@@ -114,6 +135,10 @@ public class LuceneResult implements Serializable {
         this.q = q;
     }
 
+    /**
+     * Number of milliseconds spent performing the search
+     * @return
+     */
     public int getSearchDuration() {
         return searchDuration;
     }
@@ -123,6 +148,10 @@ public class LuceneResult implements Serializable {
         this.searchDuration = searchDuration;
     }
 
+    /**
+     * The number of initial matches that were skipped
+     * @return
+     */
     public int getSkip() {
         return skip;
     }
@@ -132,6 +161,10 @@ public class LuceneResult implements Serializable {
         this.skip = skip;
     }
 
+    /**
+     * Total number of rows that match the query
+     * @return
+     */
     public int getTotalRows() {
         return totalRows;
     }
@@ -141,6 +174,10 @@ public class LuceneResult implements Serializable {
         this.totalRows = totalRows;
     }
 
+    /**
+     * The result rows
+     * @return
+     */
     public List<Row> getRows() {
         return rows;
     }
@@ -157,6 +194,10 @@ public class LuceneResult implements Serializable {
         private float score = -1;
 
 
+        /**
+         * The stored contents of the document
+         * @return
+         */
         public LinkedHashMap<String, Object> getFields() {
             return fields;
         }
@@ -166,6 +207,10 @@ public class LuceneResult implements Serializable {
             this.fields = fields;
         }
 
+        /**
+         * Id of the document that matches
+         * @return
+         */
         public String getId() {
             return id;
         }
@@ -175,6 +220,10 @@ public class LuceneResult implements Serializable {
             this.id = id;
         }
 
+        /**
+         * Normalized score of the match
+         * @return
+         */
         public float getScore() {
             return score;
         }

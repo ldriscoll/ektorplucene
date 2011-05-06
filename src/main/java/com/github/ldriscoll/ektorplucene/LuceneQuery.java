@@ -19,6 +19,7 @@ package com.github.ldriscoll.ektorplucene;
 
 import org.apache.commons.lang.StringUtils;
 import org.ektorp.http.URI;
+import org.ektorp.support.DesignDocument;
 
 /**
  * Created by IntelliJ IDEA.
@@ -26,20 +27,28 @@ import org.ektorp.http.URI;
  * User: ldriscoll
  * Date: 12/9/10
  * Time: 2:19 PM
- * To change this template use File | Settings | File Templates.
+ *
+ * A LuceneQuery is the basic tool for querying couchdb-lucene (https://github.com/rnewson/couchdb-lucene).
+ * it depends on couchdb-lucene being installed.  The names of the fields in this class match up with the
+ * names of the fields used in couchdb-lucene, this may change to become more java like.
+ * The index function and design document are well described on couchdb-lucene's website
+ * so I will not re-write that here, however we do have a sample 'index_everything.js' in the package, that
+ * can be used, in conjunction with IndexUploader, to create your initial indexing tool.
  */
 public class LuceneQuery {
+
+    public static String DEFAULT_LUCENE_PREFIX = "_fti"; // this is the default location of the couchdb-lucene indexer
 
     public static enum Operator {OR, AND}
 
     private String analyzer;
     private String callback;
     private Boolean debug;
-    private Operator default_operator;
-    private Boolean force_json;
-    private Boolean include_docs;
+    private Operator defaultOperator;
+    private Boolean forceJSON;
+    private Boolean includeDocs;
     private Integer limit;
-    private String q;
+    private String query;
     private Integer skip;
     private String sort;
     private Boolean staleOk;
@@ -52,9 +61,19 @@ public class LuceneQuery {
     private final String indexFunction;
 
 
+    /**
+     * Creates a Lucene Query that will run against couchdb-lucene
+     * @param designDocument This is the name of the design document used to index couchdb in couchdb-lucene
+     * @param indexFunction
+     */
+    public LuceneQuery(String designDocument, String indexFunction) {
+        this(DEFAULT_LUCENE_PREFIX, designDocument, indexFunction);
+    }
+
     public LuceneQuery(String lucenePrefix, String designDocument, String indexFunction) {
         this.lucenePrefix = lucenePrefix;
-        this.designDocument = designDocument;
+        this.designDocument = designDocument.startsWith(DesignDocument.ID_PREFIX)
+                ? designDocument : DesignDocument.ID_PREFIX + designDocument;
         this.indexFunction = indexFunction;
     }
 
@@ -87,10 +106,10 @@ public class LuceneQuery {
     /**
      * Change the default operator for boolean queries. Defaults to "OR",
      * other permitted value is "AND".
-     * @param default_operator
+     * @param defaultOperator
      */
-    public void setDefault_operator(Operator default_operator) {
-        this.default_operator = default_operator;
+    public void setDefaultOperator(Operator defaultOperator) {
+        this.defaultOperator = defaultOperator;
     }
 
     /**
@@ -100,18 +119,18 @@ public class LuceneQuery {
      * Some tools, like JSONView for FireFox, do not send the Accept header but do render
      * "application/json" responses if received. Setting force_json=true forces all response
      * to "application/json" regardless of the Accept header.
-     * @param force_json
+     * @param forceJSON
      */
-    public void setForce_json(Boolean force_json) {
-        this.force_json = force_json;
+    public void setForceJSON(Boolean forceJSON) {
+        this.forceJSON = forceJSON;
     }
 
     /**
      * whether to include the source docs
-     * @param include_docs
+     * @param includeDocs
      */
-    public void setInclude_docs(Boolean include_docs) {
-        this.include_docs = include_docs;
+    public void setIncludeDocs(Boolean includeDocs) {
+        this.includeDocs = includeDocs;
     }
 
     /**
@@ -126,10 +145,10 @@ public class LuceneQuery {
      * the query to run (e.g, subject:hello). If not specified, the default
      * field is searched. Multiple queries can be supplied, separated by commas;
      * the resulting JSON will be an array of responses.
-     * @param q
+     * @param query
      */
-    public void setQ(String q) {
-        this.q = q;
+    public void setQuery(String query) {
+        this.query = query;
     }
 
     /**
@@ -201,11 +220,11 @@ public class LuceneQuery {
         addParam(query, "analyzer", analyzer);
         addParam(query, "callback", callback);
         addParam(query, "debug", debug);
-        addParam(query, "default_operator", default_operator);
-        addParam(query, "force_json", force_json);
-        addParam(query, "include_docs", include_docs);
+        addParam(query, "default_operator", defaultOperator);
+        addParam(query, "force_json", forceJSON);
+        addParam(query, "include_docs", includeDocs);
         addParam(query, "limit", limit);
-        addParam(query, "q", q);
+        addParam(query, "q", this.query);
         addParam(query, "skip", skip);
         addParam(query, "sort", sort);
         if (staleOk != null && staleOk) {
@@ -230,11 +249,11 @@ public class LuceneQuery {
         if (analyzer != null ? !analyzer.equals(that.analyzer) : that.analyzer != null) return false;
         if (callback != null ? !callback.equals(that.callback) : that.callback != null) return false;
         if (debug != null ? !debug.equals(that.debug) : that.debug != null) return false;
-        if (default_operator != that.default_operator) return false;
-        if (force_json != null ? !force_json.equals(that.force_json) : that.force_json != null) return false;
-        if (include_docs != null ? !include_docs.equals(that.include_docs) : that.include_docs != null) return false;
+        if (defaultOperator != that.defaultOperator) return false;
+        if (forceJSON != null ? !forceJSON.equals(that.forceJSON) : that.forceJSON != null) return false;
+        if (includeDocs != null ? !includeDocs.equals(that.includeDocs) : that.includeDocs != null) return false;
         if (limit != null ? !limit.equals(that.limit) : that.limit != null) return false;
-        if (q != null ? !q.equals(that.q) : that.q != null) return false;
+        if (query != null ? !query.equals(that.query) : that.query != null) return false;
         if (skip != null ? !skip.equals(that.skip) : that.skip != null) return false;
         if (sort != null ? !sort.equals(that.sort) : that.sort != null) return false;
         if (staleOk != null ? !staleOk.equals(that.staleOk) : that.staleOk != null) return false;
@@ -247,11 +266,11 @@ public class LuceneQuery {
         int result = analyzer != null ? analyzer.hashCode() : 0;
         result = 31 * result + (callback != null ? callback.hashCode() : 0);
         result = 31 * result + (debug != null ? debug.hashCode() : 0);
-        result = 31 * result + (default_operator != null ? default_operator.hashCode() : 0);
-        result = 31 * result + (force_json != null ? force_json.hashCode() : 0);
-        result = 31 * result + (include_docs != null ? include_docs.hashCode() : 0);
+        result = 31 * result + (defaultOperator != null ? defaultOperator.hashCode() : 0);
+        result = 31 * result + (forceJSON != null ? forceJSON.hashCode() : 0);
+        result = 31 * result + (includeDocs != null ? includeDocs.hashCode() : 0);
         result = 31 * result + (limit != null ? limit.hashCode() : 0);
-        result = 31 * result + (q != null ? q.hashCode() : 0);
+        result = 31 * result + (query != null ? query.hashCode() : 0);
         result = 31 * result + (skip != null ? skip.hashCode() : 0);
         result = 31 * result + (sort != null ? sort.hashCode() : 0);
         result = 31 * result + (staleOk != null ? staleOk.hashCode() : 0);
