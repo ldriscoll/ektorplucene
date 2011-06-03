@@ -29,14 +29,10 @@ public class LuceneSearchTest {
 
     private LuceneAwareCouchDbConnector connector;
 
-
     @Test
     public void testSearch() {
-        // Create a few documents to search
-        updateDocument("test1", "field1", "test");
-        updateDocument("test2", "field1", "test");
-        updateDocument("test2", "field2", "here");
-
+        createDocuments();
+        
         // create a simple query against the view/search function that we've created
         LuceneQuery query = new LuceneQuery(Const.VIEW_NAME, Const.SEARCH_FUNCTION);
         query.setQuery("field1:test AND field2:here");
@@ -50,13 +46,44 @@ public class LuceneSearchTest {
             assertTrue("The results's id should be test2", result.getRows().get(0).getId().equals("test2"));
         }
         finally {
-            // delete the documents
-            deleteDocument("test1");
-            deleteDocument("test2");
+            deleteDocuments();
         }
     }
 
 
+    @Test
+    public void testSearchWithSort() {
+        createDocuments();
+
+        // create a simple query against the view/search function that we've created
+        LuceneQuery query = new LuceneQuery(Const.VIEW_NAME, Const.SEARCH_FUNCTION);
+        query.setQuery("field1:test AND field2:here");
+        query.setSort("/field1");
+        // stale must not be ok, as we've only just loaded the docs
+        query.setStaleOk(false);
+
+        try {
+            LuceneResult result = connector.queryLucene(query);
+            assertNotNull("Expecting a non null result", result);
+            assertTrue("Should only have one result", result.getRows().size() == 1);
+            assertTrue("The results's id should be test2", result.getRows().get(0).getId().equals("test2"));
+            assertNotNull("Result sort order returned by couchdb-lucene", result.getSortOrder());
+        }
+        finally {
+            deleteDocuments();
+        }
+    }
+
+    private void createDocuments() {
+        updateDocument("test1", "field1", "test");
+        updateDocument("test2", "field1", "test");
+        updateDocument("test2", "field2", "here");
+    }
+
+    private void deleteDocuments() {
+        deleteDocument("test1");
+        deleteDocument("test2");
+    }
 
     private void updateDocument(String name, String field, String value) {
         final OpenCouchDbDocument doc;

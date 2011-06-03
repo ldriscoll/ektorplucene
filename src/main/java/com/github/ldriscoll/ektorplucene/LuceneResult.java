@@ -31,6 +31,7 @@ public class LuceneResult implements Serializable {
     private static final String FETCH_DURATION_FIELD_NAME = "fetch_duration";
     private static final String SEARCH_DURATION_FIELD_NAME = "search_duration";
     private static final String TOTAL_ROWS_FIELD_NAME = "total_rows";
+    private static final String SORT_ORDER_FIELD_NAME = "sort_order";
     private static final String QUERY_FIELD_NAME = "q";
 
 
@@ -40,6 +41,7 @@ public class LuceneResult implements Serializable {
     private int fetchDuration = -1;
     private int limit = -1;
     private String plan;
+    private String sortOrder;
     private String query;
 
     private int searchDuration = -1;
@@ -132,6 +134,18 @@ public class LuceneResult implements Serializable {
     }
 
     /**
+     * The sort order
+     * @return
+     */
+    public String getSortOrder() {
+        return sortOrder;
+    }
+
+    @JsonProperty(SORT_ORDER_FIELD_NAME)
+    public void setSortOrder(String sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+    /**
      * Number of milliseconds spent performing the search
      * @return
      */
@@ -187,6 +201,7 @@ public class LuceneResult implements Serializable {
 
         private LinkedHashMap<String, Object> fields;
         private String id;
+        private List<String> sortOrder;
         private float score = -1;
 
 
@@ -214,6 +229,19 @@ public class LuceneResult implements Serializable {
         @JsonProperty
         public void setId(String id) {
             this.id = id;
+        }
+
+        /**
+         * The sort order
+         * @return
+         */
+        public List<String> getSortOrder() {
+            return sortOrder;
+        }
+
+        @JsonProperty(SORT_ORDER_FIELD_NAME)
+        public void setSortOrder(List<String> sortOrder) {
+            this.sortOrder = sortOrder;
         }
 
         /**
