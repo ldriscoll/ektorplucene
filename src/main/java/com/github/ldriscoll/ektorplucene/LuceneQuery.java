@@ -32,6 +32,7 @@ import org.ektorp.support.DesignDocument;
 public class LuceneQuery {
 
     public static String DEFAULT_LUCENE_PREFIX = "_fti"; // this is the default location of the couchdb-lucene indexer
+    public static String DEFAULT_COUCH_PREFIX = "local"; // this is the default alias of the couchdb for 1.1 URI change
 
     public static enum Operator {OR, AND}
 
@@ -53,6 +54,12 @@ public class LuceneQuery {
     private final String lucenePrefix;
     private final String designDocument;
     private final String indexFunction;
+    
+    /**
+     * CouchDB 1.1 has changed the format of URI, it needs one more prefix now
+     */
+    private final String couchPrefix; 
+    private final boolean newUriFormat;
 
 
     /**
@@ -61,11 +68,24 @@ public class LuceneQuery {
      * @param indexFunction
      */
     public LuceneQuery(String designDocument, String indexFunction) {
-        this(DEFAULT_LUCENE_PREFIX, designDocument, indexFunction);
+        this(DEFAULT_LUCENE_PREFIX, DEFAULT_COUCH_PREFIX, designDocument, indexFunction, false); // for backward compatibility
     }
+    
+    /**
+     * Creates a Lucene Query that will run against couchdb-lucene
+     * @param designDocument This is the name of the design document used to index couchdb in couchdb-lucene
+     * @param indexFunction
+     * @param newUriVersion - is new URI format used for lucene quieries
+     */
+    public LuceneQuery(String designDocument, String indexFunction, boolean newUriVersion) {
+        this(DEFAULT_LUCENE_PREFIX, DEFAULT_COUCH_PREFIX, designDocument, indexFunction, newUriVersion); 
+    }
+    
 
-    public LuceneQuery(String lucenePrefix, String designDocument, String indexFunction) {
+    public LuceneQuery(String lucenePrefix, String couchPrefix, String designDocument, String indexFunction, boolean newUriFormat) {
         this.lucenePrefix = lucenePrefix;
+        this.couchPrefix = couchPrefix;
+        this.newUriFormat = newUriFormat;
         this.designDocument = designDocument.startsWith(DesignDocument.ID_PREFIX)
                 ? designDocument : DesignDocument.ID_PREFIX + designDocument;
         this.indexFunction = indexFunction;
@@ -191,8 +211,15 @@ public class LuceneQuery {
     }
 
     private URI buildQueryPath() {
-        URI uri = URI.of(dbPath);
-        uri.append(lucenePrefix);
+        URI uri;
+        if (newUriFormat) {
+            uri = URI.of("/" + lucenePrefix);
+            uri.append(couchPrefix);
+            uri.append(dbPath.replace("/", ""));
+        } else {
+            uri = URI.of(dbPath);
+            uri.append(lucenePrefix);
+        }
         uri.append(designDocument);
         uri.append(indexFunction);
         return uri;

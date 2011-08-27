@@ -200,13 +200,16 @@ public class LuceneResult implements Serializable {
     public static class Row {
 
         private LinkedHashMap<String, Object> fields;
+        private LinkedHashMap<String, Object> doc;
+        
+        
         private String id;
         private List<String> sortOrder;
         private float score = -1;
 
 
         /**
-         * The stored contents of the document
+         * The stored contents of the document indexed fields
          * @return
          */
         public LinkedHashMap<String, Object> getFields() {
@@ -216,6 +219,19 @@ public class LuceneResult implements Serializable {
         @JsonProperty
         public void setFields(LinkedHashMap<String, Object> fields) {
             this.fields = fields;
+        }
+
+        /**
+         * The stored contents of the document (when include_docs=true)
+         * @return
+         */
+        public LinkedHashMap<String, Object> getDoc() {
+            return doc;
+        }
+
+        @JsonProperty
+        public void setDoc(LinkedHashMap<String, Object> doc) {
+            this.doc = doc;
         }
 
         /**
