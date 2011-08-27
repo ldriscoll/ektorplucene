@@ -41,7 +41,7 @@ public class LuceneResult implements Serializable {
     private int fetchDuration = -1;
     private int limit = -1;
     private String plan;
-    private String sortOrder;
+    private List<String> sortOrder;
     private String query;
 
     private int searchDuration = -1;
@@ -137,12 +137,12 @@ public class LuceneResult implements Serializable {
      * The sort order
      * @return
      */
-    public String getSortOrder() {
+    public List<String> getSortOrder() {
         return sortOrder;
     }
 
     @JsonProperty(SORT_ORDER_FIELD_NAME)
-    public void setSortOrder(String sortOrder) {
+    public void setSortOrder(List<String> sortOrder) {
         this.sortOrder = sortOrder;
     }
     /**
