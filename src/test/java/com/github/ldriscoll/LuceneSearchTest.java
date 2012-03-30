@@ -17,6 +17,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -177,11 +178,12 @@ public class LuceneSearchTest {
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
         HttpClient httpClient = new StdHttpClient.Builder()
                     .host("localhost")
                     .port(5984)
                     .socketTimeout(1000)
+                    .username("testadmin").password("testpass")
                     .build();
         CouchDbInstance instance = new StdCouchDbInstance(httpClient);
 

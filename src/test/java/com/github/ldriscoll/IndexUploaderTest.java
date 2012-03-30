@@ -65,11 +65,12 @@ public class IndexUploaderTest {
     }
 
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
         HttpClient httpClient = new StdHttpClient.Builder()
                     .host("localhost")
                     .port(5984)
                     .socketTimeout(1000)
+                    .username("testadmin").password("testpass")
                     .build();
         CouchDbInstance instance = new StdCouchDbInstance(httpClient);
         
