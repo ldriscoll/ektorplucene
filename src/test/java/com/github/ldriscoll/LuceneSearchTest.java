@@ -1,9 +1,12 @@
 package com.github.ldriscoll;
 
+import com.github.ldriscoll.ektorplucene.CustomLuceneResult;
 import com.github.ldriscoll.ektorplucene.LuceneAwareCouchDbConnector;
 import com.github.ldriscoll.ektorplucene.LuceneQuery;
 import com.github.ldriscoll.ektorplucene.LuceneResult;
 import com.github.ldriscoll.ektorplucene.util.IndexUploader;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.type.TypeReference;
 import org.ektorp.CouchDbInstance;
 import org.ektorp.http.HttpClient;
 import org.ektorp.http.StdHttpClient;
@@ -14,6 +17,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.List;
+import java.util.UUID;
+
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -74,6 +81,30 @@ public class LuceneSearchTest {
         }
     }
 
+    @Test
+    public void testSearchWithCustomResultType(){
+        createDocuments();
+        LuceneQuery query = new LuceneQuery(Const.VIEW_NAME, Const.SEARCH_FUNCTION);
+        query.setQuery("field1:test AND field2:here");
+        query.setIncludeDocs(true);
+
+        try {
+            TypeReference resultDocType = new TypeReference<CustomLuceneResult<TestDocument>>() {};
+            CustomLuceneResult customLuceneResult = connector.queryLucene(query, resultDocType);
+            assertNotNull("Expecting a non null result", customLuceneResult);
+            assertTrue("Should only have one result", customLuceneResult.getRows().size() == 1);
+
+            List<CustomLuceneResult.Row<TestDocument>> resultRows = customLuceneResult.getRows();
+            assertEquals("TestDocument", resultRows.get(0).getDoc().getClass().getSimpleName());
+            assertTrue("The result's id should be test2", resultRows.get(0).getId().equals("test2"));
+            assertTrue("The result's field1 should be test", resultRows.get(0).getDoc().getField1().equals("test"));
+            assertTrue("The result's field2 should be here", resultRows.get(0).getDoc().getField2().equals("here"));
+        }
+        finally {
+            deleteDocuments();
+        }
+    }
+
     private void createDocuments() {
         updateDocument("test1", "field1", "test");
         updateDocument("test2", "field1", "test");
@@ -104,6 +135,38 @@ public class LuceneSearchTest {
         if (connector.contains(name)) {
             OpenCouchDbDocument doc = connector.get(OpenCouchDbDocument.class, name);
             connector.delete(doc);
+        }
+    }
+
+    public static class TestDocument {
+        private String _id = UUID.randomUUID().toString();
+        private String _rev;
+        private String field1;
+        private String field2;
+
+        @JsonProperty
+        public void set_id(String _id) {
+            this._id = _id;
+        }
+
+        public void set_rev(String _rev) {
+            this._rev = _rev;
+        }
+
+        public String getField1() {
+            return field1;
+        }
+
+        public void setField1(String field1) {
+            this.field1 = field1;
+        }
+
+        public String getField2() {
+            return field2;
+        }
+
+        public void setField2(String field2) {
+            this.field2 = field2;
         }
     }
 
