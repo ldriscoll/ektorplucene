@@ -5,6 +5,8 @@ src/main/webapp/queue/
 .idea
 src/main/webapp/work/
 *.iml
+*.ipr
+*.iws
 hsql/
 logs/
 */conf/customer/

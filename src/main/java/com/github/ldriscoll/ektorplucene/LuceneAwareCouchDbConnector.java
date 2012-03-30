@@ -17,6 +17,7 @@ package com.github.ldriscoll.ektorplucene;
  */
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.ektorp.CouchDbInstance;
 import org.ektorp.http.HttpResponse;
 import org.ektorp.http.ResponseCallback;
@@ -47,6 +48,19 @@ public class LuceneAwareCouchDbConnector extends StdCouchDbConnector {
 
             public LuceneResult success(HttpResponse hr) throws Exception {
                 return objectMapper.readValue(hr.getContent(), LuceneResult.class);
+            }
+
+        };
+        return restTemplate.get(query.buildQuery(), rh);
+    }
+
+    public CustomLuceneResult queryLucene(LuceneQuery query, final TypeReference type) {
+        Assert.notNull(query, "query cannot be null");
+        query.setDbPath(this.path());
+        ResponseCallback<CustomLuceneResult> rh = new StdResponseHandler<CustomLuceneResult>() {
+
+            public CustomLuceneResult success(HttpResponse hr) throws Exception {
+                return (CustomLuceneResult) objectMapper.readValue(hr.getContent(), type);
             }
 
         };
