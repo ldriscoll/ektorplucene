@@ -40,7 +40,7 @@ Example:
 			name = "by_title",
 			index = "function(doc) { " +
 						"var res = new Document(); " +
-						"res.add(doc..title');" +
+						"res.add(doc.title);" +
 						"return res; " +
 					"}")
 	})
