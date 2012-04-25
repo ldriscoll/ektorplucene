@@ -13,21 +13,22 @@ import org.ektorp.util.Assert;
 /**
  * Extension of {@link DesignDocument} that supports the "fulltext" attribute
  * for Lucene indexes.
+ *
  * @author seanadkinson
  */
 public class LuceneDesignDocument extends DesignDocument {
-	
-	private static final long serialVersionUID = 5232811585073232156L;
-	private Map<String, LuceneDesignDocument.Index> indexes;
+
+    private static final long serialVersionUID = 5232811585073232156L;
+    private Map<String, LuceneDesignDocument.Index> indexes;
 
     public LuceneDesignDocument() {
-    	super();
+        super();
     }
 
     public LuceneDesignDocument(String id) {
-    	super(id);
+        super(id);
     }
-    
+
     @JsonProperty
     public Map<String, LuceneDesignDocument.Index> getFulltext() {
         return Collections.unmodifiableMap(indexes());
@@ -37,10 +38,10 @@ public class LuceneDesignDocument extends DesignDocument {
     void setFulltext(Map<String, LuceneDesignDocument.Index> indexes) {
         this.indexes = indexes;
     }
-    
+
     private Map<String, LuceneDesignDocument.Index> indexes() {
         if (indexes == null) {
-        	indexes = new HashMap<String, LuceneDesignDocument.Index>();
+            indexes = new HashMap<String, LuceneDesignDocument.Index>();
         }
         return indexes;
     }
@@ -62,12 +63,12 @@ public class LuceneDesignDocument extends DesignDocument {
     }
 
     @Override
-	public boolean mergeWith(DesignDocument dd) {
-    	boolean changed = super.mergeWith(dd);
-    	if (dd instanceof LuceneDesignDocument) {
-	        boolean updateOnDiff = updateOnDiff();
-	        changed = mergeIndexes(((LuceneDesignDocument)dd).indexes(), updateOnDiff) || changed;
-    	}
+    public boolean mergeWith(DesignDocument dd) {
+        boolean changed = super.mergeWith(dd);
+        if (dd instanceof LuceneDesignDocument) {
+            boolean updateOnDiff = updateOnDiff();
+            changed = mergeIndexes(((LuceneDesignDocument) dd).indexes(), updateOnDiff) || changed;
+        }
         return changed;
     }
 
@@ -82,7 +83,7 @@ public class LuceneDesignDocument extends DesignDocument {
             } else if (updateOnDiff) {
                 LuceneDesignDocument.Index existing = getIndex(name);
                 if (!existing.equals(candidate)) {
-                	addIndex(name, candidate);
+                    addIndex(name, candidate);
                     changed = true;
                 }
             }
@@ -94,9 +95,10 @@ public class LuceneDesignDocument extends DesignDocument {
     private boolean updateOnDiff() {
         return Boolean.getBoolean(AUTO_UPDATE_VIEW_ON_CHANGE) || Boolean.getBoolean(UPDATE_ON_DIFF);
     }
-	
-	/**
+
+    /**
      * Definition of an index in a design document.
+     *
      * @author Sean Adkinson
      */
     @JsonSerialize(include = Inclusion.NON_NULL)
@@ -116,7 +118,7 @@ public class LuceneDesignDocument extends DesignDocument {
         }
 
         public Index(String index) {
-        	Assert.hasText(index, "The index function cannot be null or empty!");
+            Assert.hasText(index, "The index function cannot be null or empty!");
             this.index = index;
         }
 
@@ -125,14 +127,14 @@ public class LuceneDesignDocument extends DesignDocument {
             this.defaults = (defaults == null || defaults.trim().length() == 0) ? null : defaults;
             this.analyzer = (analyzer == null || analyzer.trim().length() == 0) ? null : analyzer;
         }
-        
-		public String getIndex() {
-			return index;
-		}
-		
-		public void setIndex(String index) {
-			this.index = index;
-		}
+
+        public String getIndex() {
+            return index;
+        }
+
+        public void setIndex(String index) {
+            this.index = index;
+        }
 
         public String getDefaults() {
             return defaults;
@@ -141,14 +143,14 @@ public class LuceneDesignDocument extends DesignDocument {
         public void setDefaults(String defaults) {
             this.defaults = defaults;
         }
-        
-		public String getAnalyzer() {
-			return analyzer;
-		}
-		
-		public void setAnalyzer(String analyzer) {
-			this.analyzer = analyzer;
-		}
+
+        public String getAnalyzer() {
+            return analyzer;
+        }
+
+        public void setAnalyzer(String analyzer) {
+            this.analyzer = analyzer;
+        }
 
         @Override
         public int hashCode() {

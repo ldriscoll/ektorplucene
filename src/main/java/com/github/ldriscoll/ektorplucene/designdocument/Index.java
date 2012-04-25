@@ -9,10 +9,13 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Index {
-	
-	String name();
-	String index();
-	String defaults() default "";
-	String analyzer() default "";
-	
+
+    String name();
+
+    String index();
+
+    String defaults() default "";
+
+    String analyzer() default "";
+
 }
