@@ -13,17 +13,21 @@ import com.github.ldriscoll.ektorplucene.designdocument.LuceneDesignDocumentFact
 public class CouchDbRepositorySupportWithLucene<T> extends CouchDbRepositorySupport<T> {
 
     private LuceneDesignDocumentFactory luceneDesignDocumentFactory;
+    protected LuceneAwareCouchDbConnector db;
 
-    protected CouchDbRepositorySupportWithLucene(Class<T> type, CouchDbConnector db) {
+    protected CouchDbRepositorySupportWithLucene(Class<T> type, LuceneAwareCouchDbConnector db) {
         super(type, db);
+        this.db = db;
     }
 
-    protected CouchDbRepositorySupportWithLucene(Class<T> type, CouchDbConnector db, boolean createIfNotExists) {
+    protected CouchDbRepositorySupportWithLucene(Class<T> type, LuceneAwareCouchDbConnector db, boolean createIfNotExists) {
         super(type, db, createIfNotExists);
+        this.db = db;
     }
 
-    protected CouchDbRepositorySupportWithLucene(Class<T> type, CouchDbConnector db, String designDocName) {
+    protected CouchDbRepositorySupportWithLucene(Class<T> type, LuceneAwareCouchDbConnector db, String designDocName) {
         super(type, db, designDocName);
+        this.db = db;
     }
 
     @Override
