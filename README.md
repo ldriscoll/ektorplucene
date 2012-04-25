@@ -27,6 +27,28 @@ LuceneQuery is then a tool that builds the couchdb-lucene query, anything in tha
 
 Using a LuceneQuery one can then call luceneAwareCouchDbConnector.queryLucene.  This returns a LuceneResult, that should match the response from couchdb-lucene.
 
+# Creating Indexes #
+You can create indexes the same way you can create Views in Ektorp, you just need to follow a few steps:
+* Extend `CouchDbRepositorySupportWithLucene` instead of `CouchDbRepositorySupport` for your Repository classes
+* Annotate using `@Fulltext` and `@Index` to create indexes
+
+Example:
+
+	@FullText({
+		@Index(
+			name = "by_title",
+			index = "function(doc) { " +
+						"var res = new Document(); " +
+						"res.add(doc..title');" +
+						"return res; " +
+					"}")
+	})
+	public class CouchDBArtifactRepository extends CouchDbRepositorySupportWithLucene<Artifact> {
+	    ...
+	}
+
+If you don't set the environment variable `org.ektorp.support.UpdateDesignDocOnDiff` to `true`, you will need to delete your design document for indexes to be created.
+
 # Maven #
 EktorpLucene is now available in the maven repositories.  Please at this to your dependencies:
     <dependency>
