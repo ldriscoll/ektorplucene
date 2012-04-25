@@ -31,6 +31,7 @@ Using a LuceneQuery one can then call luceneAwareCouchDbConnector.queryLucene.  
 You can create indexes the same way you can create Views in Ektorp, you just need to follow a few steps:
 * Extend `CouchDbRepositorySupportWithLucene` instead of `CouchDbRepositorySupport` for your Repository classes
 * Annotate using `@Fulltext` and `@Index` to create indexes
+* Call `initStandardDesignDocument()` to generate the design document
 
 Example:
 
@@ -44,8 +45,23 @@ Example:
 					"}")
 	})
 	public class CouchDBArtifactRepository extends CouchDbRepositorySupportWithLucene<Artifact> {
-	    ...
+	    
+	    public CouchDBArtifactRepository(LuceneAwareCouchDbConnector db) {
+			super(Artifact.class, db);
+			initStandardDesignDocument();
+	    }
+	    
 	}
+
+This will generate a "fulltext" attribute for your design document:
+
+    ...
+    "fulltext": {
+        "by_title": {
+            "index": "function(doc) { var res = new Document(); res.add(doc.title); return res; }"
+        }
+    },
+    ...
 
 If you don't set the environment variable `org.ektorp.support.UpdateDesignDocOnDiff` to `true`, you will need to delete your design document for indexes to be created.
 
