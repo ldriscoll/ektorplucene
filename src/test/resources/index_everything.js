@@ -1,7 +1,7 @@
 // The beef of this function was lifted from the
 // index everything example on https://github.com/rnewson/couchdb-lucene#readme
 
-function(doc) {
+function (doc) {
 
 
     // Create a lucene search document
@@ -25,7 +25,7 @@ function(doc) {
                     if (val && val.constructor === Array && typeof val[0] !== 'object') {
                         // it's a list of actual values, not objects
                         // collapse the list
-                        ret.add(val.join(' '), {"field": fieldName, "store": store});
+                        ret.add(val.join(' '), {"field":fieldName, "store":store});
                     }
                     else {
                         // it's an object, so we need to index that too
@@ -42,10 +42,10 @@ function(doc) {
                         if (typeof val == 'number') {
                             val = new Date(val);
                         }
-                        ret.add(val, {"field": fieldName, "store": store, "type": "date"});
+                        ret.add(val, {"field":fieldName, "store":store, "type":"date"});
                     }
                     else {
-                        ret.add(val, {"field": fieldName, "store": store});
+                        ret.add(val, {"field":fieldName, "store":store});
                     }
                     break;
             }

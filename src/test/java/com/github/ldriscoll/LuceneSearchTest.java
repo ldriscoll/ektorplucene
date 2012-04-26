@@ -40,7 +40,7 @@ public class LuceneSearchTest {
     @Test
     public void testSearch() {
         createDocuments();
-        
+
         // create a simple query against the view/search function that we've created
         LuceneQuery query = new LuceneQuery(Const.VIEW_NAME, Const.SEARCH_FUNCTION);
         query.setQuery("field1:test AND field2:here");
@@ -52,8 +52,7 @@ public class LuceneSearchTest {
             assertNotNull("Expecting a non null result", result);
             assertTrue("Should only have one result", result.getRows().size() == 1);
             assertTrue("The results's id should be test2", result.getRows().get(0).getId().equals("test2"));
-        }
-        finally {
+        } finally {
             deleteDocuments();
         }
     }
@@ -76,21 +75,21 @@ public class LuceneSearchTest {
             assertTrue("Should only have one result", result.getRows().size() == 1);
             assertTrue("The results's id should be test2", result.getRows().get(0).getId().equals("test2"));
             assertNotNull("Result sort order returned by couchdb-lucene", result.getSortOrder());
-        }
-        finally {
+        } finally {
             deleteDocuments();
         }
     }
 
     @Test
-    public void testSearchWithCustomResultType(){
+    public void testSearchWithCustomResultType() {
         createDocuments();
         LuceneQuery query = new LuceneQuery(Const.VIEW_NAME, Const.SEARCH_FUNCTION);
         query.setQuery("field1:test AND field2:here");
         query.setIncludeDocs(true);
 
         try {
-            TypeReference resultDocType = new TypeReference<CustomLuceneResult<TestDocument>>() {};
+            TypeReference resultDocType = new TypeReference<CustomLuceneResult<TestDocument>>() {
+            };
             CustomLuceneResult customLuceneResult = connector.queryLucene(query, resultDocType);
             assertNotNull("Expecting a non null result", customLuceneResult);
             assertTrue("Should only have one result", customLuceneResult.getRows().size() == 1);
@@ -100,8 +99,7 @@ public class LuceneSearchTest {
             assertTrue("The result's id should be test2", resultRows.get(0).getId().equals("test2"));
             assertTrue("The result's field1 should be test", resultRows.get(0).getDoc().getField1().equals("test"));
             assertTrue("The result's field2 should be here", resultRows.get(0).getDoc().getField2().equals("here"));
-        }
-        finally {
+        } finally {
             deleteDocuments();
         }
     }
@@ -121,8 +119,7 @@ public class LuceneSearchTest {
         final OpenCouchDbDocument doc;
         if (connector.contains(name)) {
             doc = connector.get(OpenCouchDbDocument.class, name);
-        }
-        else {
+        } else {
             doc = new OpenCouchDbDocument();
             doc.setId(name);
             connector.create(doc);
@@ -180,11 +177,11 @@ public class LuceneSearchTest {
     @Before
     public void setUp() throws IOException {
         HttpClient httpClient = new StdHttpClient.Builder()
-                    .host("localhost")
-                    .port(5984)
-                    .socketTimeout(1000)
-                    .username("testadmin").password("testpass")
-                    .build();
+                .host("localhost")
+                .port(5984)
+                .socketTimeout(1000)
+                .username("testadmin").password("testpass")
+                .build();
         CouchDbInstance instance = new StdCouchDbInstance(httpClient);
 
         // don't really need a lucene aware couchdb connector, but just testing it in case

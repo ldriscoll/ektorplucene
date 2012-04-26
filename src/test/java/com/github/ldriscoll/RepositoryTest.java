@@ -74,8 +74,7 @@ public class RepositoryTest {
         final OpenCouchDbDocument doc;
         if (connector.contains(name)) {
             doc = connector.get(OpenCouchDbDocument.class, name);
-        }
-        else {
+        } else {
             doc = new OpenCouchDbDocument();
             doc.setId(name);
             connector.create(doc);
@@ -98,7 +97,7 @@ public class RepositoryTest {
                     index = "function(doc) { " +
                             "    var res = new Document(); " +
                             "    res.add(doc.field1, {\"field\": \"field1\", \"store\": \"yes\"});" +
-                            "    res.add(doc.field2, {\"field\": \"field2\", \"store\": \"yes\"});"+
+                            "    res.add(doc.field2, {\"field\": \"field2\", \"store\": \"yes\"});" +
                             "    return res; " +
                             "}")
     })

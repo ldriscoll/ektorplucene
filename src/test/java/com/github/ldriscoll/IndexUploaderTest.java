@@ -38,8 +38,6 @@ public class IndexUploaderTest {
     private CouchDbConnector connector;
 
 
-
-
     @Test
     public void testChangeWorks() {
         uploader.updateSearchFunctionIfNecessary(connector, Const.VIEW_NAME, Const.SEARCH_FUNCTION, indexNothingJS);
@@ -67,13 +65,13 @@ public class IndexUploaderTest {
     @Before
     public void setUp() throws IOException {
         HttpClient httpClient = new StdHttpClient.Builder()
-                    .host("localhost")
-                    .port(5984)
-                    .socketTimeout(1000)
-                    .username("testadmin").password("testpass")
-                    .build();
+                .host("localhost")
+                .port(5984)
+                .socketTimeout(1000)
+                .username("testadmin").password("testpass")
+                .build();
         CouchDbInstance instance = new StdCouchDbInstance(httpClient);
-        
+
         // don't really need a lucene aware couchdb connector, but just testing it in case
         connector = new LuceneAwareCouchDbConnector(Const.TEST_DATABASE, instance);
         connector.createDatabaseIfNotExists();
@@ -85,9 +83,9 @@ public class IndexUploaderTest {
     }
 
 
-
     /**
      * Reads in the given js file name form the classpath
+     *
      * @param jsFileName
      * @return
      */
