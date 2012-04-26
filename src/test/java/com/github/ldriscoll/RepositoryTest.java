@@ -4,11 +4,9 @@ import com.github.ldriscoll.ektorplucene.CouchDbRepositorySupportWithLucene;
 import com.github.ldriscoll.ektorplucene.LuceneAwareCouchDbConnector;
 import com.github.ldriscoll.ektorplucene.LuceneQuery;
 import com.github.ldriscoll.ektorplucene.LuceneResult;
-import com.github.ldriscoll.ektorplucene.designdocument.FullText;
-import com.github.ldriscoll.ektorplucene.designdocument.Index;
 import com.github.ldriscoll.ektorplucene.designdocument.LuceneDesignDocument;
-import com.github.ldriscoll.ektorplucene.util.IndexUploader;
-import org.ektorp.CouchDbConnector;
+import com.github.ldriscoll.ektorplucene.designdocument.annotation.FullText;
+import com.github.ldriscoll.ektorplucene.designdocument.annotation.Index;
 import org.ektorp.CouchDbInstance;
 import org.ektorp.http.HttpClient;
 import org.ektorp.http.StdHttpClient;
@@ -20,7 +18,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
