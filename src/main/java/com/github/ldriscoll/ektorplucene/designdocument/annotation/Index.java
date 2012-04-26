@@ -1,4 +1,4 @@
-package com.github.ldriscoll.ektorplucene.designdocument;
+package com.github.ldriscoll.ektorplucene.designdocument.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -14,8 +14,8 @@ public @interface Index {
 
     String index();
 
-    String defaults() default "";
-
     String analyzer() default "";
+    
+    Defaults defaults() default @Defaults;
 
 }
