@@ -17,7 +17,6 @@ package com.github.ldriscoll.ektorplucene;
  */
 
 import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.ektorp.CouchDbInstance;
@@ -59,8 +58,7 @@ public class LuceneAwareCouchDbConnector extends StdCouchDbConnector {
         if (version.startsWith("0.") || version.startsWith("1.0")) {
             this.lucenePrefix = DEFAULT_LUCENE_PREFIX;
             this.luceneIndex = null;
-        }
-        else {
+        } else {
             this.lucenePrefix = DEFAULT_LUCENE_PREFIX;
             this.luceneIndex = DEFAULT_LUCENE_INDEX;
         }

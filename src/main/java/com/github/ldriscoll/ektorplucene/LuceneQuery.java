@@ -50,10 +50,11 @@ public class LuceneQuery {
 
     private final String designDocument;
     private final String indexFunction;
-    
+
 
     /**
      * Creates a Lucene Query that will run against couchdb-lucene
+     *
      * @param designDocument This is the name of the design document used to index couchdb in couchdb-lucene
      * @param indexFunction
      */
@@ -63,7 +64,8 @@ public class LuceneQuery {
         this.indexFunction = indexFunction;
     }
 
-    /** Override the default analyzer used to parse the q parameter
+    /**
+     * Override the default analyzer used to parse the q parameter
      *
      * @param analyzer
      */
@@ -74,6 +76,7 @@ public class LuceneQuery {
     /**
      * Specify a JSONP callback wrapper. The full JSON result will be prepended with
      * this parameter and also placed with parentheses."
+     *
      * @param callback
      */
     public void setCallback(String callback) {
@@ -83,6 +86,7 @@ public class LuceneQuery {
     /**
      * Setting this to true disables response caching (the query is executed every time)
      * and indents the JSON response for readability.
+     *
      * @param debug
      */
     public void setDebug(Boolean debug) {
@@ -92,6 +96,7 @@ public class LuceneQuery {
     /**
      * Change the default operator for boolean queries. Defaults to "OR",
      * other permitted value is "AND".
+     *
      * @param defaultOperator
      */
     public void setDefaultOperator(Operator defaultOperator) {
@@ -105,6 +110,7 @@ public class LuceneQuery {
      * Some tools, like JSONView for FireFox, do not send the Accept header but do render
      * "application/json" responses if received. Setting force_json=true forces all response
      * to "application/json" regardless of the Accept header.
+     *
      * @param forceJSON
      */
     public void setForceJSON(Boolean forceJSON) {
@@ -113,6 +119,7 @@ public class LuceneQuery {
 
     /**
      * whether to include the source docs
+     *
      * @param includeDocs
      */
     public void setIncludeDocs(Boolean includeDocs) {
@@ -121,6 +128,7 @@ public class LuceneQuery {
 
     /**
      * the maximum number of results to return
+     *
      * @param limit
      */
     public void setLimit(Integer limit) {
@@ -131,6 +139,7 @@ public class LuceneQuery {
      * the query to run (e.g, subject:hello). If not specified, the default
      * field is searched. Multiple queries can be supplied, separated by commas;
      * the resulting JSON will be an array of responses.
+     *
      * @param query
      */
     public void setQuery(String query) {
@@ -139,6 +148,7 @@ public class LuceneQuery {
 
     /**
      * the number of results to skip
+     *
      * @param skip
      */
     public void setSkip(Integer skip) {
@@ -147,10 +157,11 @@ public class LuceneQuery {
 
     /**
      * the comma-separated fields to sort on. Prefix with / for ascending order
-     *  and \ for descending order (ascending is the default if not specified).
+     * and \ for descending order (ascending is the default if not specified).
      * Type-specific sorting is also available by appending the type between angle
      * brackets (e.g, sort=amount<float>). Supported types are 'float', 'double',
      * 'int', 'long' and 'date'.
+     *
      * @param sort
      */
     public void setSort(String sort) {
@@ -164,6 +175,7 @@ public class LuceneQuery {
      * A query without stale=ok will block and use the latest data committed to the index.
      * Unlike CouchDBs stale=ok option for views, couchdb-lucene will trigger an index
      * update unless one is already running.
+     *
      * @param staleOk
      */
     public void setStaleOk(Boolean staleOk) {
@@ -173,7 +185,7 @@ public class LuceneQuery {
 
     private boolean hasValue(Object o) {
         if (o instanceof String) {
-            return !StringUtils.isEmpty((String)o);
+            return !StringUtils.isEmpty((String) o);
         }
         return o != null;
     }

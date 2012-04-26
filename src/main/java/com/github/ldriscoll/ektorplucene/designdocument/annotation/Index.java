@@ -15,7 +15,7 @@ public @interface Index {
     String index();
 
     String analyzer() default "";
-    
+
     Defaults defaults() default @Defaults;
 
 }

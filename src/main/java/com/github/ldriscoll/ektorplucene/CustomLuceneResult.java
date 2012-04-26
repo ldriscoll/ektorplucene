@@ -9,11 +9,11 @@ public class CustomLuceneResult<T> extends CommonLuceneResult {
     private List<Row<T>> rows;
 
     @JsonProperty
-    public void setRows(List<Row<T>> rows){
+    public void setRows(List<Row<T>> rows) {
         this.rows = rows;
     }
 
-    public List<Row<T>> getRows(){
+    public List<Row<T>> getRows() {
         return rows;
     }
 

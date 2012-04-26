@@ -9,13 +9,13 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Defaults {
-	
-	String field() default "";
-	
-	String type() default "";
-	
-	String store() default "";
-	
-	String index() default "";
-	
+
+    String field() default "";
+
+    String type() default "";
+
+    String store() default "";
+
+    String index() default "";
+
 }

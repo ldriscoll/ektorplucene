@@ -1,13 +1,13 @@
 package com.github.ldriscoll.ektorplucene.designdocument;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.ektorp.support.DesignDocument;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.ektorp.support.DesignDocument;
 
 /**
  * Extension of {@link DesignDocument} that supports the "fulltext" attribute
@@ -76,13 +76,13 @@ public class LuceneDesignDocument extends DesignDocument {
         for (Map.Entry<String, LuceneIndex> e : mergeIndexes.entrySet()) {
             String name = e.getKey();
             LuceneIndex candidate = e.getValue();
-            
+
             //add new indexes
             if (!containsIndex(name)) {
                 addIndex(name, candidate);
                 changed = true;
             }
-            
+
             //maybe update existing
             else if (updateOnDiff) {
                 LuceneIndex existing = getIndex(name);
@@ -92,19 +92,19 @@ public class LuceneDesignDocument extends DesignDocument {
                 }
             }
         }
-        
+
         //remove indexes that don't match
         Set<String> toRemove = new HashSet<String>();
         for (String existingIndexName : indexes().keySet()) {
             if (!mergeIndexes.containsKey(existingIndexName)) {
-            	toRemove.add(existingIndexName);
+                toRemove.add(existingIndexName);
                 changed = true;
             }
         }
         for (String removeIndexName : toRemove) {
-        	removeIndex(removeIndexName);
+            removeIndex(removeIndexName);
         }
-        
+
         return changed;
     }
 

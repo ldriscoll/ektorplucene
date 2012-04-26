@@ -15,7 +15,6 @@ class CommonLuceneResult implements Serializable {
     static final String QUERY_FIELD_NAME = "q";
 
 
-
     protected String analyzer;
     protected String etag;
     protected int fetchDuration = -1;
@@ -39,6 +38,7 @@ class CommonLuceneResult implements Serializable {
     /**
      * The analyzer that was used during processing.  Please refer to https://github.com/rnewson/couchdb-lucene
      * for more details
+     *
      * @return
      */
     public String getAnalyzer() {
@@ -52,6 +52,7 @@ class CommonLuceneResult implements Serializable {
 
     /**
      * Token that reflects the current version of the index
+     *
      * @return
      */
     public String getEtag() {
@@ -65,6 +66,7 @@ class CommonLuceneResult implements Serializable {
 
     /**
      * Number of milliseconds spent retrieving the documents
+     *
      * @return
      */
     public int getFetchDuration() {
@@ -78,6 +80,7 @@ class CommonLuceneResult implements Serializable {
 
     /**
      * The maximum number of results that are returned
+     *
      * @return
      */
     public int getLimit() {
@@ -100,6 +103,7 @@ class CommonLuceneResult implements Serializable {
 
     /**
      * The query that was executed
+     *
      * @return
      */
     public String getQuery() {
@@ -113,6 +117,7 @@ class CommonLuceneResult implements Serializable {
 
     /**
      * The sort order
+     *
      * @return
      */
     public List<String> getSortOrder() {
@@ -123,8 +128,10 @@ class CommonLuceneResult implements Serializable {
     public void setSortOrder(List<String> sortOrder) {
         this.sortOrder = sortOrder;
     }
+
     /**
      * Number of milliseconds spent performing the search
+     *
      * @return
      */
     public int getSearchDuration() {
@@ -138,6 +145,7 @@ class CommonLuceneResult implements Serializable {
 
     /**
      * The number of initial matches that were skipped
+     *
      * @return
      */
     public int getSkip() {
@@ -151,6 +159,7 @@ class CommonLuceneResult implements Serializable {
 
     /**
      * Total number of rows that match the query
+     *
      * @return
      */
     public int getTotalRows() {

@@ -24,14 +24,15 @@ public class IndexUploader {
 
     /**
      * Ensures taht the given body of the index function matches that in the database, otherwise update it.
-     * @param db Connection to couchdb
-     * @param viewName Name of the view that we're updating
-     * @param searchFunction Name of the search function, within that view
+     *
+     * @param db                          Connection to couchdb
+     * @param viewName                    Name of the view that we're updating
+     * @param searchFunction              Name of the search function, within that view
      * @param javascriptIndexFunctionBody The body of the javascript for that search function
      * @return whether or not the body of the document was updated.
      */
     public boolean updateSearchFunctionIfNecessary(CouchDbConnector db, String viewName, String searchFunction,
-                                        String javascriptIndexFunctionBody) {
+                                                   String javascriptIndexFunctionBody) {
 
         boolean updatePerformed = false;
 
@@ -49,8 +50,7 @@ public class IndexUploader {
             db.create(doc);
             updateSearchFunction(db, doc, searchFunction, javascriptIndexFunctionBody, actualChk);
             updatePerformed = true;
-        }
-        else {
+        } else {
             // make sure it's up to date
             DesignDocument doc = db.get(DesignDocument.class, designDocName);
             Number docChk = (Number) doc.getAnonymous().get(getChecksumFieldName(searchFunction));
@@ -66,6 +66,7 @@ public class IndexUploader {
 
     /**
      * In case there are multiple search functions in this design document, we want to ensure that we checksum the right one
+     *
      * @param searchFunction the name of the search function for which the checksum applies
      * @return
      */
@@ -78,11 +79,12 @@ public class IndexUploader {
      * Creates the design document that we use when searching.  This contains the index function that is used by lucene
      * in the future we will probably want to support customer specific instances, as well as adding a checksum
      * to the object, so that we can test if an index needs to be upgraded
-     * @param db Couch connection
-     * @param doc The design document that we're updating
+     *
+     * @param db                 Couch connection
+     * @param doc                The design document that we're updating
      * @param searchFunctionName The name of the search function that the user wants to index couch with
-     * @param javascript The body of the javascript of the search function
-     * @param jsChecksum The checksum of the search function body
+     * @param javascript         The body of the javascript of the search function
+     * @param jsChecksum         The checksum of the search function body
      */
     private void updateSearchFunction(CouchDbConnector db, DesignDocument doc, String searchFunctionName,
                                       String javascript, long jsChecksum) {
@@ -109,8 +111,6 @@ public class IndexUploader {
         db.update(doc);
 
     }
-
-
 
 
 }

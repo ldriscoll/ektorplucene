@@ -1,15 +1,15 @@
 package com.github.ldriscoll.ektorplucene.designdocument;
 
+import com.github.ldriscoll.ektorplucene.designdocument.annotation.Index;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import org.ektorp.util.Assert;
 
-import com.github.ldriscoll.ektorplucene.designdocument.annotation.Index;
-
 /**
  * Definition of an index in a design document.
+ *
  * @author Sean Adkinson
  */
 @JsonSerialize(include = Inclusion.NON_NULL)
@@ -22,15 +22,15 @@ public class LuceneIndex {
     private String analyzer;
 
     public static LuceneIndex fromAnnotation(Index idx) {
-    	Assert.hasText(idx.index(), "The index function can't be null or empty");
-    	
-        LuceneIndex li =  new LuceneIndex();
-		li.setIndex(idx.index());
-		li.setDefaults(LuceneDefaults.fromAnnotation(idx.defaults()));
-    	if (!StringUtils.isBlank(idx.analyzer())) {
-    		li.setAnalyzer(idx.analyzer());
-    	}
-    	return li;
+        Assert.hasText(idx.index(), "The index function can't be null or empty");
+
+        LuceneIndex li = new LuceneIndex();
+        li.setIndex(idx.index());
+        li.setDefaults(LuceneDefaults.fromAnnotation(idx.defaults()));
+        if (!StringUtils.isBlank(idx.analyzer())) {
+            li.setAnalyzer(idx.analyzer());
+        }
+        return li;
     }
 
     public String getIndex() {
@@ -40,14 +40,14 @@ public class LuceneIndex {
     public void setIndex(String index) {
         this.index = index;
     }
-    
-	public LuceneDefaults getDefaults() {
-		return defaults;
-	}
-	
-	public void setDefaults(LuceneDefaults defaults) {
-		this.defaults = defaults;
-	}
+
+    public LuceneDefaults getDefaults() {
+        return defaults;
+    }
+
+    public void setDefaults(LuceneDefaults defaults) {
+        this.defaults = defaults;
+    }
 
     public String getAnalyzer() {
         return analyzer;

@@ -1,11 +1,10 @@
 package com.github.ldriscoll.ektorplucene.designdocument;
 
+import com.github.ldriscoll.ektorplucene.designdocument.annotation.Defaults;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
-
-import com.github.ldriscoll.ektorplucene.designdocument.annotation.Defaults;
 
 /**
  * Class representing the "defaults" attribute of an index.
@@ -13,73 +12,73 @@ import com.github.ldriscoll.ektorplucene.designdocument.annotation.Defaults;
 @JsonSerialize(include = Inclusion.NON_NULL)
 public class LuceneDefaults {
 
-	/**
-	 * Create a {@link LuceneDefaults} from a {@link Defaults} annotation.
-	 * Returns null if no values are set.
-	 */
+    /**
+     * Create a {@link LuceneDefaults} from a {@link Defaults} annotation.
+     * Returns null if no values are set.
+     */
     public static LuceneDefaults fromAnnotation(Defaults defaults) {
-    	LuceneDefaults lid = new LuceneDefaults();
-    	boolean hasValues = false;
-    	
-    	if (!StringUtils.isBlank(defaults.field())) {
-    		lid.setField(defaults.field());
-    		hasValues = true;
-    	}
-    	if (!StringUtils.isBlank(defaults.type())) {
-    		lid.setType(defaults.type());
-    		hasValues = true;
-    	}
-    	if (!StringUtils.isBlank(defaults.store())) {
-    		lid.setStore(defaults.store());
-    		hasValues = true;
-    	}
-    	if (!StringUtils.isBlank(defaults.index())) {
-    		lid.setIndex(defaults.index());
-    		hasValues = true;
-    	}
-    	return hasValues ? lid : null;
+        LuceneDefaults lid = new LuceneDefaults();
+        boolean hasValues = false;
+
+        if (!StringUtils.isBlank(defaults.field())) {
+            lid.setField(defaults.field());
+            hasValues = true;
+        }
+        if (!StringUtils.isBlank(defaults.type())) {
+            lid.setType(defaults.type());
+            hasValues = true;
+        }
+        if (!StringUtils.isBlank(defaults.store())) {
+            lid.setStore(defaults.store());
+            hasValues = true;
+        }
+        if (!StringUtils.isBlank(defaults.index())) {
+            lid.setIndex(defaults.index());
+            hasValues = true;
+        }
+        return hasValues ? lid : null;
     }
 
     @JsonProperty
-	private String field;
+    private String field;
     @JsonProperty
-	private String type;
+    private String type;
     @JsonProperty
-	private String store;
+    private String store;
     @JsonProperty
-	private String index;
-	
-	public String getField() {
-		return field;
-	}
-	
-	public void setField(String field) {
-		this.field = field;
-	}
-	
-	public String getType() {
-		return type;
-	}
-	
-	public void setType(String type) {
-		this.type = type;
-	}
-	
-	public String getStore() {
-		return store;
-	}
-	
-	public void setStore(String store) {
-		this.store = store;
-	}
-	
-	public String getIndex() {
-		return index;
-	}
-	
-	public void setIndex(String index) {
-		this.index = index;
-	}
+    private String index;
+
+    public String getField() {
+        return field;
+    }
+
+    public void setField(String field) {
+        this.field = field;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getStore() {
+        return store;
+    }
+
+    public void setStore(String store) {
+        this.store = store;
+    }
+
+    public String getIndex() {
+        return index;
+    }
+
+    public void setIndex(String index) {
+        this.index = index;
+    }
 
     @Override
     public int hashCode() {
@@ -100,7 +99,7 @@ public class LuceneDefaults {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        
+
         LuceneDefaults other = (LuceneDefaults) obj;
         if (field == null) {
             if (other.field != null)
@@ -125,8 +124,8 @@ public class LuceneDefaults {
                 return false;
         } else if (!index.equals(other.index))
             return false;
-        
+
         return true;
     }
-	
+
 }
