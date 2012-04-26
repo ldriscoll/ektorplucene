@@ -2,9 +2,9 @@ package com.github.ldriscoll.ektorplucene;
 
 import java.util.Random;
 
-import org.ektorp.CouchDbConnector;
 import org.ektorp.UpdateConflictException;
 import org.ektorp.support.CouchDbRepositorySupport;
+import org.ektorp.support.DesignDocument;
 
 import com.github.ldriscoll.ektorplucene.designdocument.LuceneDesignDocument;
 import com.github.ldriscoll.ektorplucene.designdocument.LuceneDesignDocumentFactory;
@@ -12,12 +12,12 @@ import com.github.ldriscoll.ektorplucene.designdocument.LuceneDesignDocumentFact
 
 public class CouchDbRepositorySupportWithLucene<T> extends CouchDbRepositorySupport<T> {
 
-    private LuceneDesignDocumentFactory luceneDesignDocumentFactory;
     protected LuceneAwareCouchDbConnector db;
 
     protected CouchDbRepositorySupportWithLucene(Class<T> type, LuceneAwareCouchDbConnector db) {
         super(type, db);
         this.db = db;
+        setDesignDocumentFactory(new LuceneDesignDocumentFactory());
     }
 
     protected CouchDbRepositorySupportWithLucene(Class<T> type, LuceneAwareCouchDbConnector db, boolean createIfNotExists) {
@@ -43,7 +43,7 @@ public class CouchDbRepositorySupportWithLucene<T> extends CouchDbRepositorySupp
             designDoc = new LuceneDesignDocument(stdDesignDocumentId);
         }
         log.debug("Generating DesignDocument for {}", type);
-        LuceneDesignDocument generated = getDesignDocumentFactory().generateFrom(this);
+        DesignDocument generated = getDesignDocumentFactory().generateFrom(this);
         boolean changed = designDoc.mergeWith(generated);
         if (log.isDebugEnabled()) {
             debugDesignDoc(designDoc);
@@ -75,14 +75,6 @@ public class CouchDbRepositorySupportWithLucene<T> extends CouchDbRepositorySupp
             Thread.currentThread().interrupt();
             return;
         }
-    }
-
-    @Override
-    protected LuceneDesignDocumentFactory getDesignDocumentFactory() {
-        if (luceneDesignDocumentFactory == null) {
-            luceneDesignDocumentFactory = new LuceneDesignDocumentFactory();
-        }
-        return luceneDesignDocumentFactory;
     }
 
 }
