@@ -1,16 +1,14 @@
 package com.github.ldriscoll.ektorplucene.designdocument;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.ldriscoll.ektorplucene.designdocument.annotation.Defaults;
 import com.github.ldriscoll.ektorplucene.designdocument.annotation.FullText;
 import com.github.ldriscoll.ektorplucene.designdocument.annotation.Index;

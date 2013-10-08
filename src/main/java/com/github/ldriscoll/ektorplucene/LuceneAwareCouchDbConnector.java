@@ -16,9 +16,8 @@ package com.github.ldriscoll.ektorplucene;
  * limitations under the License.
  */
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
+import java.io.IOException;
+
 import org.ektorp.CouchDbInstance;
 import org.ektorp.http.HttpResponse;
 import org.ektorp.http.ResponseCallback;
@@ -28,7 +27,9 @@ import org.ektorp.http.URI;
 import org.ektorp.impl.StdCouchDbConnector;
 import org.ektorp.util.Assert;
 
-import java.io.IOException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Simple override of the base StdCouchDbConnector that allows us to run queries against couchdb
@@ -54,7 +55,7 @@ public class LuceneAwareCouchDbConnector extends StdCouchDbConnector {
 
         HttpResponse response = dbInstance.getConnection().get("/");
         JsonNode node = objectMapper.readValue(response.getContent(), JsonNode.class);
-        String version = node.get("version").getTextValue();
+        String version = node.get("version").asText();
         if (version.startsWith("0.") || version.startsWith("1.0")) {
             this.lucenePrefix = DEFAULT_LUCENE_PREFIX;
             this.luceneIndex = null;

@@ -1,13 +1,14 @@
 package com.github.ldriscoll.ektorplucene.designdocument;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.ektorp.support.DesignDocument;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import org.ektorp.support.DesignDocument;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Extension of {@link DesignDocument} that supports the "fulltext" attribute

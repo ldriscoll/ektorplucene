@@ -1,10 +1,10 @@
 package com.github.ldriscoll.ektorplucene;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import java.io.Serializable;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 
 class CommonLuceneResult implements Serializable {
 
@@ -31,7 +31,7 @@ class CommonLuceneResult implements Serializable {
     private String getStringValue(JsonNode node, String fieldName) {
         JsonNode resNode = node.get(fieldName);
         if (resNode == null) return null;
-        return resNode.getTextValue();
+        return resNode.asText();
     }
 
 

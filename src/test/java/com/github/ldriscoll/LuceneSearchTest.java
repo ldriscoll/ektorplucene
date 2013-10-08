@@ -1,29 +1,30 @@
 package com.github.ldriscoll;
 
-import com.github.ldriscoll.ektorplucene.CustomLuceneResult;
-import com.github.ldriscoll.ektorplucene.LuceneAwareCouchDbConnector;
-import com.github.ldriscoll.ektorplucene.LuceneQuery;
-import com.github.ldriscoll.ektorplucene.LuceneResult;
-import com.github.ldriscoll.ektorplucene.util.IndexUploader;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.type.TypeReference;
+import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.UUID;
+
 import org.ektorp.CouchDbInstance;
 import org.ektorp.http.HttpClient;
 import org.ektorp.http.StdHttpClient;
 import org.ektorp.impl.StdCouchDbInstance;
 import org.ektorp.support.OpenCouchDbDocument;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.UUID;
-
-import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.github.ldriscoll.ektorplucene.CustomLuceneResult;
+import com.github.ldriscoll.ektorplucene.LuceneAwareCouchDbConnector;
+import com.github.ldriscoll.ektorplucene.LuceneQuery;
+import com.github.ldriscoll.ektorplucene.LuceneResult;
+import com.github.ldriscoll.ektorplucene.util.IndexUploader;
 
 /**
  * Created by IntelliJ IDEA.
@@ -49,9 +50,9 @@ public class LuceneSearchTest {
 
         try {
             LuceneResult result = connector.queryLucene(query);
-            assertNotNull("Expecting a non null result", result);
-            assertTrue("Should only have one result", result.getRows().size() == 1);
-            assertTrue("The results's id should be test2", result.getRows().get(0).getId().equals("test2"));
+            Assert.assertNotNull("Expecting a non null result", result);
+            Assert.assertTrue("Should only have one result", result.getRows().size() == 1);
+            Assert.assertTrue("The results's id should be test2", result.getRows().get(0).getId().equals("test2"));
         } finally {
             deleteDocuments();
         }
@@ -71,10 +72,10 @@ public class LuceneSearchTest {
 
         try {
             LuceneResult result = connector.queryLucene(query);
-            assertNotNull("Expecting a non null result", result);
-            assertTrue("Should only have one result", result.getRows().size() == 1);
-            assertTrue("The results's id should be test2", result.getRows().get(0).getId().equals("test2"));
-            assertNotNull("Result sort order returned by couchdb-lucene", result.getSortOrder());
+            Assert.assertNotNull("Expecting a non null result", result);
+            Assert.assertTrue("Should only have one result", result.getRows().size() == 1);
+            Assert.assertTrue("The results's id should be test2", result.getRows().get(0).getId().equals("test2"));
+            Assert.assertNotNull("Result sort order returned by couchdb-lucene", result.getSortOrder());
         } finally {
             deleteDocuments();
         }
@@ -91,14 +92,14 @@ public class LuceneSearchTest {
             TypeReference resultDocType = new TypeReference<CustomLuceneResult<TestDocument>>() {
             };
             CustomLuceneResult customLuceneResult = connector.queryLucene(query, resultDocType);
-            assertNotNull("Expecting a non null result", customLuceneResult);
-            assertTrue("Should only have one result", customLuceneResult.getRows().size() == 1);
+            Assert.assertNotNull("Expecting a non null result", customLuceneResult);
+            Assert.assertTrue("Should only have one result", customLuceneResult.getRows().size() == 1);
 
             List<CustomLuceneResult.Row<TestDocument>> resultRows = customLuceneResult.getRows();
             assertEquals("TestDocument", resultRows.get(0).getDoc().getClass().getSimpleName());
-            assertTrue("The result's id should be test2", resultRows.get(0).getId().equals("test2"));
-            assertTrue("The result's field1 should be test", resultRows.get(0).getDoc().getField1().equals("test"));
-            assertTrue("The result's field2 should be here", resultRows.get(0).getDoc().getField2().equals("here"));
+            Assert.assertTrue("The result's id should be test2", resultRows.get(0).getId().equals("test2"));
+            Assert.assertTrue("The result's field1 should be test", resultRows.get(0).getDoc().getField1().equals("test"));
+            Assert.assertTrue("The result's field2 should be here", resultRows.get(0).getDoc().getField2().equals("here"));
         } finally {
             deleteDocuments();
         }
@@ -171,7 +172,7 @@ public class LuceneSearchTest {
     @BeforeClass
     public static void setUpClass() {
         indexEverythingJS = IndexUploaderTest.readJSFile(Const.INDEX_EVERYTHING_JS);
-        assertNotNull(indexEverythingJS);
+        Assert.assertNotNull(indexEverythingJS);
     }
 
     @Before

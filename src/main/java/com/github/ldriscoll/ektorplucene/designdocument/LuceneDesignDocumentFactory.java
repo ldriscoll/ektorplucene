@@ -42,7 +42,7 @@ public class LuceneDesignDocumentFactory extends StdDesignDocumentFactory {
     }
 
     @Override
-    protected DesignDocument newDesignDocumentInstance() {
+    public DesignDocument newDesignDocumentInstance() {
         return new LuceneDesignDocument();
     }
 
