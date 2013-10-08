@@ -16,10 +16,10 @@ package com.github.ldriscoll.ektorplucene;
  * limitations under the License.
  */
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import java.util.LinkedHashMap;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The result of the lucene query.

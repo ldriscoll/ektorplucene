@@ -1,11 +1,12 @@
 package com.github.ldriscoll.ektorplucene.designdocument;
 
-import com.github.ldriscoll.ektorplucene.designdocument.annotation.Index;
 import org.apache.commons.lang.StringUtils;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import org.ektorp.util.Assert;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion;
+import com.github.ldriscoll.ektorplucene.designdocument.annotation.Index;
 
 /**
  * Definition of an index in a design document.

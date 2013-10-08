@@ -201,6 +201,7 @@ public class LuceneQuery {
         if (cachedQuery != null) {
             return cachedQuery;
         }
+        System.out.println(designDocument + " " + indexFunction);
         query.append(designDocument);
         query.append(indexFunction);
 

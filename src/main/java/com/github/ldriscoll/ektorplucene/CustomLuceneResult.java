@@ -1,8 +1,8 @@
 package com.github.ldriscoll.ektorplucene;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CustomLuceneResult<T> extends CommonLuceneResult {
 

@@ -1,9 +1,9 @@
 package com.github.ldriscoll.ektorplucene;
 
-import org.codehaus.jackson.annotate.JsonProperty;
-
 import java.util.LinkedHashMap;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 class CommonRow {
     protected LinkedHashMap<String, Object> fields;

@@ -1,13 +1,15 @@
 package com.github.ldriscoll.ektorplucene;
 
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.codehaus.jackson.map.ser.CustomSerializerFactory;
 import org.ektorp.CouchDbConnector;
 import org.ektorp.impl.StdObjectMapperFactory;
 import org.joda.time.DateTime;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.Version;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 /**
  * Code based on StdObjectMapperFactory
@@ -33,14 +35,12 @@ public class EktorpLuceneObjectMapperFactory extends StdObjectMapperFactory {
     }
 
     private void applyDefaultConfiguration(ObjectMapper instance) {
-
-        instance.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS, false);
+        instance.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         instance.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
         instance.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
-        instance.getSerializationConfig().setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
-
-        CustomSerializerFactory sf = new CustomSerializerFactory();
-        sf.addSpecificMapping(DateTime.class, new DateTimeSerializer());
-        instance.setSerializerFactory(sf);
+        instance.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        
+        SimpleModule module = new SimpleModule("Serialization", new Version(1, 0, 0, null, null, null));
+        module.addSerializer(DateTime.class, new DateTimeSerializer());
     }
 }
