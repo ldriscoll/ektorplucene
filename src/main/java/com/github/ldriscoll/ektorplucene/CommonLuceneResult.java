@@ -20,7 +20,7 @@ class CommonLuceneResult implements Serializable {
     protected int fetchDuration = -1;
     protected int limit = -1;
     protected String plan;
-    protected List<String> sortOrder;
+    protected List<SortDetail> sortOrder;
     protected String query;
 
     protected int searchDuration = -1;
@@ -120,12 +120,12 @@ class CommonLuceneResult implements Serializable {
      *
      * @return
      */
-    public List<String> getSortOrder() {
+    public List<SortDetail> getSortOrder() {
         return sortOrder;
     }
 
     @JsonProperty(SORT_ORDER_FIELD_NAME)
-    public void setSortOrder(List<String> sortOrder) {
+    public void setSortOrder(List<SortDetail> sortOrder) {
         this.sortOrder = sortOrder;
     }
 
@@ -169,6 +169,36 @@ class CommonLuceneResult implements Serializable {
     @JsonProperty(TOTAL_ROWS_FIELD_NAME)
     public void setTotalRows(int totalRows) {
         this.totalRows = totalRows;
+    }
+
+    public static class SortDetail {
+        private String field;
+        private boolean reverse = false;
+        private String type;
+
+        public String getField() {
+            return field;
+        }
+
+        public void setField(String field) {
+            this.field = field;
+        }
+
+        public boolean isReverse() {
+            return reverse;
+        }
+
+        public void setReverse(boolean reverse) {
+            this.reverse = reverse;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
     }
 }
 

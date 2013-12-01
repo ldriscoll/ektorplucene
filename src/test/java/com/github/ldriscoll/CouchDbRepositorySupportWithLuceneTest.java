@@ -44,11 +44,15 @@ public class CouchDbRepositorySupportWithLuceneTest {
             will(returnValue(false));
 
             //pretend to generate a design document from the support class
+            oneOf(factory).newDesignDocumentInstance();
+            will(returnValue(designDoc));
+            oneOf(designDoc).setId("_design/Example");
+
             oneOf(factory).generateFrom(dbSupport);
             will(returnValue(designDoc));
 
             //the lucene design doc will be updated
-            oneOf(db).update(designDoc);
+            oneOf(designDoc).mergeWith(designDoc);
         }});
 
         dbSupport.initStandardDesignDocument();
@@ -65,6 +69,7 @@ public class CouchDbRepositorySupportWithLuceneTest {
             will(returnValue(true));
 
             //return the mocked lucene design document
+            oneOf(factory).getFromDatabase(db, "_design/Example");
             oneOf(db).get(LuceneDesignDocument.class, "_design/Example");
             will(returnValue(existingDoc));
 
