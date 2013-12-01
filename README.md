@@ -6,9 +6,10 @@ Version 0.1.1 supports ektorp 1.0.2
 Version 0.1.2 supports ektorp 1.1.0
 Version 0.1.3 supports ektorp 1.1.1
 Version 0.1.4 supports ektorp 1.2.2
+Version 0.2.0 supports ektorp 1.4.1 and couchdb-lucene 0.9.0
 
 # Minimum System Requirement #
-Java 1.5 (or Above) is required.  Personnaly I use Sun Java 6
+Java 1.5 (or Above) is required.  Personally I use Sun Java 7
 
 # Issue Tracking #
 
@@ -70,7 +71,7 @@ EktorpLucene is now available in the maven repositories.  Please at this to your
     <dependency>
       <groupId>com.github.ldriscoll</groupId>
       <artifactId>ektorplucene</artifactId>
-      <version>0.1.3</version>
+      <version>0.2.0</version>
     </dependency>
 
 # Sample #
